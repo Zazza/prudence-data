@@ -1,0 +1,82 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    font-size: 12px;
+    height:100%;
+    min-height:100%;
+    background-color: #EFF5F2;
+}
+.header {
+    border-bottom: 1px solid #E5E5E5;
+    margin-bottom: 30px;
+}
+.header h3 {
+    line-height: 40px;
+    margin-bottom: 0;
+    margin-top: 0;
+    padding-bottom: 19px;
+}
+#dataContent {
+    margin-top: 20px;
+}
+#left {
+
+}
+#mainTab > li {
+    font-weight: bold;
+}
+#mainTab > li > a {
+    text-decoration: none;
+}
+.entity, #panel, #entityTabs {
+    height: 100%;
+    border-width: 0;
+}
+.tabMenu > li > a {
+    color: #000;
+}
+#treeview .k-sprite {
+    background-image: url("/img/coloricons-sprite.png");
+}
+.rootfolder {
+    background-position: 0 0;
+}
+.folder {
+    background-position: 0 -16px;
+}
+
+.entityList, .dataList {
+    padding: 10px;
+    overflow: hidden;
+}
+.entityListName, .dataListName {
+    float: left;
+}
+.entityListDate, .dataListDate {
+    float: right;
+}
+hr {
+    margin: 2px 0;
+}
+#dataTitleDiv {
+    padding: 4px 0;
+}
+#dataTitle {
+    width: 100%;
+}
+#dataConent {
+    padding: 10px 0;
+}
+
+.nav-pills > .liSearch > a {
+    padding: 6px;
+}
+
+/* переопределение */
+.k-tabstrip > .k-content, .k-panelbar .k-tabstrip > .k-content {
+    padding: 2px;
+}
+
+.k-tabstrip-items > .k-item > .k-link {
+    margin: 5px 10px;
+}

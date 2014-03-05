@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMS Notification Center</title>
+    <link href="/kendo/styles/kendo.bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="/kendo/styles/kendo.common-bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="/css/bootstrap.min.css" rel="stylesheet" media="screen" />
+    <link href="/css/bootstrap-theme.min.css" rel="stylesheet" media="screen" />
+    <link rel="stylesheet" href="/css/font-awesome.min.css" />
+    <link href="/css/style.css" rel="stylesheet" media="screen">
+
+</head>
+<body>
+
+    <div class="container" id="password-form">
+        <div id="loginbox" style="margin-top:50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+            <div class="panel panel-info" >
+                <div class="panel-heading">
+                    <div class="panel-title">Вход</div>
+                </div>
+
+                <div style="padding-top:30px" class="panel-body" >
+                    <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
+
+                        <div style="margin-bottom: 25px" class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-key"></i></span>
+                            <input type="password" class="form-control" id="sjcl_password" style="width: 200px;" />
+                        </div>
+
+                        <div style="margin-top:10px" class="form-group">
+                            <div class="col-sm-12 controls">
+                                <a id="btn-login" href="#" class="btn btn-success">Ok </a>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="dataContent" class="container" style="height: 100%; display: none;">
+
+        <div class="row" style="height: 100%;">
+
+            <div class="col-md-3 k-block" style="background-color: #FFFFFF; height: 100%;">
+                <ul class="nav nav-pills">
+                    <li id="newSection">
+                        <a href="#">
+                            <i class="fa fa-plus"></i> Добавить
+                        </a>
+                    </li>
+                    <li id="rmSection">
+                        <a href="#">
+                            <i class="fa fa-minus"></i> Удалить
+                        </a>
+                    </li>
+                </ul>
+                <hr />
+                <div id="left">
+                    <div id="treeview"></div>
+                </div>
+            </div>
+
+            <div class="col-md-9" style="height: 100%;">
+                <div id="panel">
+                    <ul id="mainTab">
+                        <li class="k-state-active">
+                            <i class="fa fa-start"></i> Список объектов
+                        </li>
+                    </ul>
+
+                    <div>
+
+                        <ul class="nav nav-pills tabMenu k-block">
+                            <li id="newEntity">
+                                <a href="#">
+                                    <i class="fa fa-plus"></i> Добавить объект
+                                </a>
+                            </li>
+                        </ul>
+
+                        <hr />
+
+                        <div id="structure"></div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <script type="text/x-kendo-template" id="entityTemplate">
+        <div class="entity" data-id="#: id #">
+            <ul class="nav nav-pills tabMenu k-block">
+                <li class="newData">
+                    <a style="cursor: pointer;">
+                        <span class="k-icon k-si-plus"></span> Добавить запись
+                    </a>
+                </li>
+                <li class="rmEntity">
+                    <a style="cursor: pointer;">
+                        <span class="k-icon k-si-minus"></span> Удалить объект
+                    </a>
+                </li>
+                <li class="closeEntity" style="float: right;">
+                    <a style="cursor: pointer;">
+                        <span class="k-icon k-si-close"></span> Закрыть вкладку
+                    </a>
+                </li>
+                <li class="liSearch" style="float: right;">
+                    <a>
+                        <input type="text" class="k-input search" style="width: 300px;" />
+                        <input type="button" class="k-button searchDo" value="Поиск" />
+                    </a>
+                </li>
+            </ul>
+            <hr />
+            <div class="result">#= data #</div>
+        </div>
+    </script>
+
+    <script type="text/x-kendo-template" id="entityListTemplate">
+        <div class="entityList">
+            <div class="entityListName"><a data-id="#: id #" style="cursor: pointer;">#: name #</a></div>
+            <div class="entityListDate">#: timestamp #</div>
+        </div>
+    </script>
+
+    <script type="text/x-kendo-template" id="dataTemplate">
+        <div class="dataList">
+            <div class="dataListName"><a data-id="#: id #" style="cursor: pointer;">#: name #</a></div>
+            <div class="dataListDate">#: timestamp #</div>
+        </div>
+    </script>
+
+    <script type="text/x-kendo-template" id="dataComposerWindowTemplate">
+        <div id="dataComposer" style="display: none;">
+            <div id="dataTitleDiv">
+                <input id="dataTitle" type="text" class="k-input" placeholder="Title">
+            </div>
+            <textarea id="dataEditor" rows="10" cols="30" style="width:100%; height:400px"></textarea>
+            <div style="text-align: right; padding: 4px 0;">
+                <input value="Save" id="saveData" type="button" class="k-button">
+            </div>
+        </div>
+    </script>
+
+    <script type="text/x-kendo-template" id="dataEditWindowTemplate">
+        <div id="dataEdit" style="display: none;">
+            <div id="dataTitleDiv">
+                <input id="dataTitle" type="text" class="k-input" placeholder="Title" value="#: title #">
+            </div>
+            <textarea id="dataEditor" rows="10" cols="30" style="width:100%; height:400px">#: text #</textarea>
+            <div style="text-align: right; padding: 4px 0;">
+                <input value="Save" id="editData" type="button" class="k-button">
+                <input type="hidden" id="dataEntityId" value="#: id #">
+            </div>
+        </div>
+    </script>
+
+    <script type="text/x-kendo-template" id="dataViewWindowTemplate">
+        <div id="dataView" style="display: none;">
+            <ul class="nav nav-pills tabMenu k-block">
+                <li>
+                    <a id="editEntityData" data-id="#: id #" style="cursor: pointer;">Edit</a>
+                </li>
+                <li>
+                    <a id="rmEntityData" data-id="#: id #" style="cursor: pointer;">Remove</a>
+                </li>
+            </ul>
+            <div id="dataConent"></div>
+        </div>
+    </script>
+
+    <input type="hidden" id="curSection" value="0" />
+
+    <script data-main="/js/main" src="/js/require.js"></script>
+
+</body>
+</html>
